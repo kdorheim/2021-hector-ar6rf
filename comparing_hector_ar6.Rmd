@@ -1600,14 +1600,14 @@ Great there is no difference!
 How do these changes affect Hector output? I've run Hector v 2.5 with the SPPs and Hector v3 updated with the AR6 functions and parameterizations. Comparing the total RF and major GHG outputs Hector v3 runs at a higher RF which means that it will be also be warmer. 
 
 ```{r}
-var <- RF_TOTAL()
+var <- c(RF_TOTAL(), "Tgav")
 
 hector_v_hector %>%  
-  filter(variable == var) %>% 
+  filter(variable %in% var) %>% 
   mutate(version = as.character(version)) %>% 
   ggplot(aes(year, value, color = version, linetype = scenario)) + 
   geom_line() + 
-  labs(title = var)
+  facet_wrap("variable", scales = "free")
 ```
 
 
